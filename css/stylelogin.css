@@ -1,0 +1,69 @@
+/* Estilos personalizados */
+body {
+    background-color: #4CAF50;
+    /* Color de fondo verde mate */
+    margin: 0;
+    /* Elimina los márgenes predeterminados */
+    padding: 0;
+    /* Elimina los rellenos predeterminados */
+    height: 100vh;
+    /* Altura del 100% de la ventana */
+    display: flex;
+    /* Utiliza el modelo de caja flexible */
+    align-items: center;
+    /* Centra verticalmente el contenido */
+    justify-content: center;
+    /* Centra horizontalmente el contenido */
+}
+
+.custom-container {
+    background-color: #fff;
+    /* Color de fondo blanco */
+    border-radius: 10px;
+    /* Esquinas redondeadas */
+    padding: 20px;
+    /* Espaciado interno */
+    max-width: 400px;
+    /* Ancho máximo */
+    width: 100%;
+    /* Ancho del 100% en dispositivos pequeños */
+    text-align: center;
+    /* Centra el texto */
+}
+
+.custom-container img {
+    max-height: 150px;
+    /* Ajusta la altura máxima de la imagen */
+    width: auto;
+    /* Para mantener la proporción de la imagen */
+    margin-bottom: 20px;
+    /* Espaciado inferior */
+}
+
+.custom-container h2 {
+    color: #333;
+    /* Color de texto oscuro */
+}
+
+.form-control {
+    margin-bottom: 15px;
+    /* Espaciado inferior para los campos de formulario */
+}
+
+@media (max-width: 767px) {
+    .custom-container {
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-container {
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: auto;
+    }
+}
