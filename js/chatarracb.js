@@ -8,10 +8,19 @@ $(document).ready(function () {
     });
 });
 
+
 function cargarChatarras() {
+    const idSucursal = $("#idSucursal").val(); // Obtener id_sucursal del input hidden
+
+    if (!idSucursal) {
+        console.error("No se encontró el ID de la sucursal.");
+        return;
+    }
+
     $.ajax({
         type: "GET",
         url: "http://localhost/api_metrecicla/controllers/chatarras.php",
+        data: { id_sucursal: idSucursal }, // Enviar id_sucursal como parámetro
         dataType: "json",
         success: function (response) {
             if (response.codigo === 200 && response.data.resultado.length > 0) {

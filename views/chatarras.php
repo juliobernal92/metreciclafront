@@ -90,7 +90,7 @@ include("../includes/header.php");
         // Inicializar DataTables con configuración de idioma
         $('#tablaChatarra').DataTable({
             language: {
-                url: "../json/Spanish.json"
+                        url: '../json/Spanish.json'
             }
         });
     });

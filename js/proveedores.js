@@ -46,10 +46,12 @@ $(document).ready(function () {
 });
 //CARGAR DATOS EN LA TABLA
 function cargarDatosTabla() {
+    const idSucursal = $("#idSucursal").val();
     $.ajax({
         type: "GET",
         url: "http://localhost/api_metrecicla/controllers/proveedores.php",
         dataType: "json",
+        data: { id_sucursal: idSucursal },
         success: function (proveedores) {
             var tabla = $('#tablaProveedores').DataTable();
             tabla.clear().draw();

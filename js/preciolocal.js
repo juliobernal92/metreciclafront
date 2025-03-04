@@ -50,9 +50,18 @@ function cargarLocales() {
 
 
 function cargarChatarraSinPrecioVenta(idLocal) {
+    var idSucursal = $("#idSucursal").val();// Obtener el id_sucursal desde el select o cualquier otro elemento
+    console.log("Sucursal seleccionada:", idSucursal); // Verificar el valor
+
+    // Verificar que ambos parámetros estén presentes
+    if (!idSucursal) {
+        console.error("No se ha seleccionado una sucursal.");
+        return;
+    }
+
     $.ajax({
         type: "GET",
-        url: `http://localhost/api_metrecicla/controllers/preciolocal.php?id_localventa=${idLocal}`,
+        url: `http://localhost/api_metrecicla/controllers/preciolocal.php?id_localventa=${idLocal}&id_sucursal=${idSucursal}`,
         dataType: "json",
         success: function (response) {
             if (response.codigo === 200) {
@@ -72,15 +81,19 @@ function cargarChatarraSinPrecioVenta(idLocal) {
 }
 
 
+
+
 function cargarDetallesLocal() {
 
     var idLocal = $("#idlocalSelect").val();
+    var idSucursal = $("#idSucursal").val();
 
     // Realizar la llamada AJAX para obtener los detalles de los precios del local seleccionado
     $.ajax({
         type: "GET",
         url: "http://localhost/api_metrecicla/controllers/preciolocal.php", // Ajusta la ruta según tu estructura de archivos
-        data: { id_local: idLocal }, // Envía el ID del local seleccionado al servidor
+        data: { sucursal:idSucursal,
+            localventa: idLocal }, // Envía el ID del local seleccionado al servidor
         dataType: "json",
         success: function (data) {
             // Limpiar la tabla antes de agregar los nuevos datos
@@ -131,7 +144,16 @@ function addPrecioLocal() {
     var idChatarra = $("#idChatarraSelect").val();
     // Obtener el precio
     var precio = $("#precio").val();
+    // Obtener el ID de la sucursal
+    var idSucursal = $("#idSucursal").val();
 
+    // Verificar si todos los campos necesarios están completos
+    if (!idLocal || !idChatarra || !precio || !idSucursal) {
+        alert("Por favor, complete todos los campos.");
+        return;
+    }
+
+    // Realizar la llamada AJAX para agregar el precio de la chatarra
     $.ajax({
         type: "POST",
         url: "http://localhost/api_metrecicla/controllers/preciolocal.php", // Ajusta la ruta según tu estructura de archivos
@@ -139,8 +161,9 @@ function addPrecioLocal() {
             id_localventa: idLocal,
             id_chatarra: idChatarra,
             precioventa: precio,
+            id_sucursal: idSucursal,  // Añadir id_sucursal al objeto
             activo: 1,
-            ajax: 1,
+            ajax: 1
         }),
         dataType: "json",
         contentType: "application/json",
@@ -157,6 +180,7 @@ function addPrecioLocal() {
         },
     });
 }
+
 
 function showBootstrapAlert(message, type) {
     // Agregar la alerta al DOM
