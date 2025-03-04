@@ -32,7 +32,7 @@ function addDetalleCompra() {
     // Enviar datos del detalle al servidor
     $.ajax({
         type: "POST",
-        url: "http://localhost/api_metrecicla/controllers/detallescompra.php",
+        url: apiUrl + "/controllers/detallescompra.php",
         data: JSON.stringify({
             id_compra: idticket,
             id_chatarra: idchatarra,
@@ -50,6 +50,8 @@ function addDetalleCompra() {
                 // Limpiar los campos del formulario
                 $("#cantidad").val("");
                 $("#precio").val("");
+                $("#idChatarraSelect").val("").trigger("change"); // Restablecer a la opciÃ³n por defecto
+                $("#idChatarraSelect").focus();
 
                 // Mostrar mensaje de éxito
                 showBootstrapAlert("Detalle de compra añadido correctamente.", "success");
@@ -84,7 +86,7 @@ function loadDetallesCompra(idticket) {
 
     $.ajax({
         type: "GET",
-        url: `http://localhost/api_metrecicla/controllers/detallescompra.php?id=${idticket}`,
+        url: `${apiUrl}/controllers/detallescompra.php?id=${idticket}`,
         dataType: "json",
         success: function (response) {
 
@@ -165,7 +167,7 @@ $("#saveEditBtn").on("click", function () {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost/api_metrecicla/controllers/detallescompra.php",
+        url: apiUrl+"/controllers/detallescompra.php",
         data: JSON.stringify({
             id_detalle_compra: detalleId,
             cantidad: nuevaCantidad
@@ -219,7 +221,7 @@ $(document).on("click", ".btn-delete", function () {
 function deleteDetalleCompra(detalleId) {
     $.ajax({
         type: "DELETE",
-        url: `http://localhost/api_metrecicla/controllers/detallescompra.php?id=${detalleId}`,
+        url: `${apiUrl}/controllers/detallescompra.php?id=${detalleId}`,
         success: function (response) {
             if (response.codigo === 200) {
                 // Recargar la tabla
@@ -310,7 +312,7 @@ function addCompra(callback) {
     // Enviar datos al servidor
     $.ajax({
         type: "POST",
-        url: "http://localhost/api_metrecicla/controllers/compras.php",
+        url: apiUrl + "/controllers/compras.php",
         data: JSON.stringify({
             id_sucursal: idsucursal,
             fecha: fechaFormatted, // Fecha con hora actual incluida

@@ -47,7 +47,7 @@ function showBootstrapAlert(message, type) {
     // Realizar la solicitud AJAX al backend
     $.ajax({
       type: "POST",
-      url: "http://localhost/api_metrecicla/controllers/localesventa.php",
+      url: apiUrl + "/controllers/localesventa.php",
       data: JSON.stringify({
         nombre: nombre,
         direccion: direccion,

@@ -42,4 +42,5 @@ include("../includes/header.php");
 </div>
 
 <script src="../js/alv.js"></script>
+<script src="../js/config.js"></script>
 <?php include("../includes/footer.php"); ?>

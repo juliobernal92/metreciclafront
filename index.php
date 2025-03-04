@@ -78,6 +78,7 @@ require_once("config/auth.php");
 </div>
 
 <?php include("includes/footer.php") ?>
+<script src="js/config.js"></script>
 <script>
     $(document).ready(function() {
         const idSucursal = document.getElementById('idSucursal').value;
@@ -96,7 +97,7 @@ require_once("config/auth.php");
     function cargarTablaCompras(tipo, tablaSelector, totalSelector, idSucursal) {
         $.ajax({
             type: "GET",
-            url: `http://localhost/api_metrecicla/controllers/obtenercompras.php?action=${tipo}&id_sucursal=${idSucursal}`,
+            url: `${apiUrl}/controllers/obtenercompras.php?action=${tipo}&id_sucursal=${idSucursal}`,
             dataType: "json",
             success: function(response) {
                 if (response.codigo === 200) {

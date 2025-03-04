@@ -49,7 +49,7 @@ function cargarDatosTabla() {
     const idSucursal = $("#idSucursal").val();
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/proveedores.php",
+        url: apiUrl+"/controllers/proveedores.php",
         dataType: "json",
         data: { id_sucursal: idSucursal },
         success: function (proveedores) {
@@ -79,7 +79,7 @@ function cargarDatosTabla() {
 function loadEditData(proveedorID) {
     $.ajax({
         type: "GET",
-        url: 'http://localhost/api_metrecicla/controllers/proveedores.php',
+        url: `${apiUrl}/controllers/proveedores.php`,
         data: {
             id: proveedorID
         },
@@ -111,7 +111,7 @@ function saveEditProveedor() {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost/api_metrecicla/controllers/proveedores.php",
+        url: apiUrl+"/controllers/proveedores.php",
         data: JSON.stringify({
             id_proveedor: proveedorId,
             nombre: nuevoNombre,
@@ -196,7 +196,7 @@ $(document).on("click", ".btn-delete", function () {
 function deleteProveedor(proveedorId) {
     $.ajax({
         type: "DELETE",
-        url: `http://localhost/api_metrecicla/controllers/proveedores.php?id=${proveedorId}`,
+        url: `${apiUrl}/controllers/proveedores.php?id=${proveedorId}`,
         dataType: "json",
         success: function (responseData) {
             if (responseData.codigo === 200) {
@@ -264,7 +264,7 @@ function addProveedorForm() {
     // Realizar la solicitud AJAX al backend
     $.ajax({
         type: "POST",
-        url: "http://localhost/api_metrecicla/controllers/proveedores.php",
+        url: apiUrl+"/controllers/proveedores.php",
         data: JSON.stringify({
             nombre: nombre,
             direccion: direccion,

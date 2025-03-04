@@ -19,7 +19,7 @@ function cargarChatarras() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/chatarras.php",
+        url: apiUrl + "/controllers/chatarras.php",
         data: { id_sucursal: idSucursal }, // Enviar id_sucursal como parámetro
         dataType: "json",
         success: function (response) {

@@ -29,7 +29,7 @@ function cargarLocales() {
     // Realizar la llamada AJAX para obtener las opciones del select
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/localesventa.php", // Ajusta la ruta si es necesario
+        url: apiUrl + "/controllers/localesventa.php", // Ajusta la ruta si es necesario
         dataType: "json",
         success: function (response) {
             if (response.codigo === 200 && response.data.resultado.length > 0) {
@@ -61,7 +61,7 @@ function cargarChatarraSinPrecioVenta(idLocal) {
 
     $.ajax({
         type: "GET",
-        url: `http://localhost/api_metrecicla/controllers/preciolocal.php?id_localventa=${idLocal}&id_sucursal=${idSucursal}`,
+        url: `${apiUrl}/controllers/preciolocal.php?id_localventa=${idLocal}&id_sucursal=${idSucursal}`,
         dataType: "json",
         success: function (response) {
             if (response.codigo === 200) {
@@ -91,7 +91,7 @@ function cargarDetallesLocal() {
     // Realizar la llamada AJAX para obtener los detalles de los precios del local seleccionado
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/preciolocal.php", // Ajusta la ruta según tu estructura de archivos
+        url: apiUrl + "/controllers/preciolocal.php", // Ajusta la ruta según tu estructura de archivos
         data: { sucursal:idSucursal,
             localventa: idLocal }, // Envía el ID del local seleccionado al servidor
         dataType: "json",
@@ -156,7 +156,7 @@ function addPrecioLocal() {
     // Realizar la llamada AJAX para agregar el precio de la chatarra
     $.ajax({
         type: "POST",
-        url: "http://localhost/api_metrecicla/controllers/preciolocal.php", // Ajusta la ruta según tu estructura de archivos
+        url: apiUrl+"/controllers/preciolocal.php", // Ajusta la ruta según tu estructura de archivos
         data: JSON.stringify({
             id_localventa: idLocal,
             id_chatarra: idChatarra,
@@ -218,7 +218,7 @@ $(document).on("click", ".btn-edit", function () {
 function loadEditData(precioId) {
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/preciolocal.php",
+        url: apiUrl+"/controllers/preciolocal.php",
         data: {
             id: precioId,
         },
@@ -258,7 +258,7 @@ function guardaredit(precioId) {
     var nuevoPrecio = $("#modalPrecio").val();
     $.ajax({
         type: "PUT",
-        url: "http://localhost/api_metrecicla/controllers/preciolocal.php",
+        url: apiUrl+"/controllers/preciolocal.php",
         data: JSON.stringify({
             id_preciolocal: precioId,
             precioventa: nuevoPrecio
@@ -319,7 +319,7 @@ $(document).on("click", ".btn-delete", function () {
 function deletePrecio(precioId) {
     $.ajax({
         type: "DELETE",
-        url: `http://localhost/api_metrecicla/controllers/preciolocal.php?id=${precioId}`,
+        url: `${apiUrl}/controllers/preciolocal.php?id=${precioId}`,
         data: {
             id_precioventa: precioId,
             ajax: 1,

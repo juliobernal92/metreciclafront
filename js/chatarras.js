@@ -3,7 +3,7 @@ function cargarDatosTabla() {
   const idSucursal = $("#idSucursal").val();
   $.ajax({
     type: "GET",
-    url: "http://localhost/api_metrecicla/controllers/chatarras.php",
+    url: apiUrl + "/controllers/chatarras.php",
     dataType: "json",
     data: { id_sucursal: idSucursal },
     success: function (chatarras) {
@@ -74,7 +74,7 @@ $(document).ready(function () {
 function loadEditData(chatarraId) {
   $.ajax({
     type: "GET",
-    url: "http://localhost/api_metrecicla/controllers/chatarras.php",
+    url: apiUrl + "/controllers/chatarras.php",
     data: {
       id: chatarraId,
     },
@@ -106,7 +106,7 @@ function saveEditChatarra() {
 
   $.ajax({
     type: "PUT",
-    url: "http://localhost/api_metrecicla/controllers/chatarras.php",
+    url: apiUrl + "/controllers/chatarras.php",
     data: JSON.stringify({
       id_chatarra: chatarraId,
       nombre: nuevoNombre,
@@ -199,7 +199,7 @@ function addChatarraForm() {
   // Realizar la solicitud AJAX al backend
   $.ajax({
     type: "POST",
-    url: "http://localhost/api_metrecicla/controllers/chatarras.php",
+    url: apiUrl + "/controllers/chatarras.php",
     data: JSON.stringify({
       nombre: nombre,
       precio: precio,
@@ -246,7 +246,7 @@ function deleteChatarra(chatarraId) {
   var id_chatarra = chatarraId;
   $.ajax({
     type: "DELETE",
-    url: "http://localhost/api_metrecicla/controllers/chatarras.php",
+    url: apiUrl + "/controllers/chatarras.php",
     data: JSON.stringify({
       id_chatarra: id_chatarra,
       ajax: 1,

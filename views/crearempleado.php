@@ -123,4 +123,5 @@ include("../includes/header.php");
 </script>
 <script src="<?php echo BASE_URL; ?>/js/fecha.js"></script>
 <script src="<?php echo BASE_URL; ?>/js/empleados.js"></script>
+<script src="../js/config.js"></script>
 <?php include("../includes/footer.php"); ?>

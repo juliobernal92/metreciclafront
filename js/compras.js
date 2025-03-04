@@ -41,7 +41,7 @@ function addProveedor() {
     // Llamada AJAX para añadir el proveedor
     $.ajax({
         type: "POST",
-        url: "http://localhost/api_metrecicla/controllers/proveedores.php",
+        url: apiUrl + "/controllers/proveedores.php",
         data: JSON.stringify({
             nombre: nombre,
             telefono: telefono,
@@ -94,7 +94,7 @@ function buscarProveedor() {
 
     $.ajax({
         type: "GET",
-        url: `http://localhost/api_metrecicla/controllers/proveedores.php`, // La URL base
+        url: `${apiUrl}/controllers/proveedores.php`, // La URL base
         data: { id: id_proveedor }, // Parámetro GET
         dataType: "json",
         success: function (response) {

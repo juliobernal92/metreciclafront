@@ -64,7 +64,7 @@ function showBootstrapAlert(message, type) {
 function cargarDatosTabla() {
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/localesventa.php",
+        url: apiUrl + "/controllers/localesventa.php",
         dataType: "json",
         success: function (locales) {
             // Limpiar la tabla antes de agregar nuevos datos
@@ -90,7 +90,7 @@ function cargarDatosTabla() {
 function loadEditData(localId) {
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/localesventa.php",
+        url: apiUrl + "/controllers/localesventa.php",
         data: {
             id: localId
         },
@@ -126,7 +126,7 @@ function saveEditLocal() {
     // Puedes hacer una solicitud AJAX para enviar los datos editados al servidor
     $.ajax({
         type: "PUT",
-        url: "http://localhost/api_metrecicla/controllers/localesventa.php",
+        url: apiUrl + "/controllers/localesventa.php",
         data: JSON.stringify({
             id_localventa: localId,
             nombre: nuevoNombre,
@@ -166,7 +166,7 @@ function cerrarDelete() {
 function deleteLocal(localId) {
     $.ajax({
         type: "DELETE",
-        url: `http://localhost/api_metrecicla/controllers/localesventa.php?id=${localId}`,
+        url: `${apiUrl}http://localhost/api_metrecicla/controllers/localesventa.php?id=${localId}`,
         data: {
             id_localventa: localId
         },

@@ -85,6 +85,7 @@ include("../includes/header.php");
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script src="../json/Spanish.json"></script>
 <script src="../js/chatarras.js"></script>
+<script src="../js/config.js"></script>
 <script>
     $(document).ready(function() {
         // Inicializar DataTables con configuración de idioma

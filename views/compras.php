@@ -200,6 +200,7 @@ include("../includes/header.php");
     </div>
     <script src="../js/addtotal.js"> </script>
     <script src="../js/validacion.js"></script>
+    <script src="../js/config.js"></script>
     <script src="<?php echo BASE_URL; ?>/js/fecha.js"></script>
     <script src="<?php echo BASE_URL; ?>/js/compras.js"></script>
     <script src="../js/chatarracb.js"></script>

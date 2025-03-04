@@ -88,4 +88,5 @@ include("../includes/header.php");
 </div>
 
 <script src="../js/proveedores.js"></script>
+<script src="../js/config.js"></script>
 <?php include("../includes/footer.php"); ?>

@@ -12,7 +12,7 @@ $(document).ready(function () {
 function cargarLocales() {
   $.ajax({
     type: "GET",
-    url: "http://localhost/api_metrecicla/controllers/localesventa.php",
+    url: apiUrl + "/controllers/localesventa.php",
     dataType: "json",
     success: function (response) {
       if (response.codigo === 200 && response.data.resultado.length > 0) {
@@ -52,7 +52,7 @@ function cargarChatarrasCb() {
 
   $.ajax({
     type: "GET",
-    url: "http://localhost/api_metrecicla/controllers/preciolocal.php",
+    url: apiUrl + "/controllers/preciolocal.php",
     data: { localventa: idLocal, sucursal: idSucursal },
     dataType: "json",
     success: function (data) {
@@ -105,7 +105,7 @@ function getPrecioCompra() {
   // Llamada AJAX para obtener el precio de compra de la chatarra seleccionada
   $.ajax({
     type: "GET",
-    url: `http://localhost/api_metrecicla/controllers/chatarras.php`,
+    url: `${apiUrl}/controllers/chatarras.php`,
     data: { id: idChatarra }, // Concatenamos el ID en la URL
     dataType: "json",
     success: function (response) {
@@ -135,7 +135,7 @@ function getPrecioVenta(idPrecioLocal) {
 
   $.ajax({
     type: "GET",
-    url: `http://localhost/api_metrecicla/controllers/preciolocal.php`,
+    url: `${apiUrl}/controllers/preciolocal.php`,
     data: { id: idPrecioLocal }, // Usamos el id_preciolocal como parámetro
     dataType: "json",
     success: function (response) {
@@ -205,7 +205,7 @@ function addDetalleVenta() {
   // Enviar datos del detalle al servidor
   $.ajax({
     type: "POST",
-    url: "http://localhost/api_metrecicla/controllers/detallesventa.php",
+    url: apiUrl + "/controllers/detallesventa.php",
     data: JSON.stringify(dataToSend),
     dataType: "json",
     contentType: "application/json",
@@ -247,7 +247,7 @@ function addVenta(callback) {
   // Enviar datos al servidor
   $.ajax({
     type: "POST",
-    url: "http://localhost/api_metrecicla/controllers/ventas.php",
+    url: apiUrl + "/controllers/ventas.php",
     data: JSON.stringify({
       id_sucursal: idsucursal,
       id_empleado: idempleado,
@@ -287,7 +287,7 @@ function addVenta(callback) {
 ///////-----------CARGAR DATOS EN LA TABLA
 function loadDetallesVenta(idVenta) {
   $.ajax({
-    url: "http://localhost/api_metrecicla/controllers/detallesventa.php",
+    url: apiUrl + "/controllers/detallesventa.php",
     type: "GET",
     data: { id: idVenta },
     dataType: "json",
@@ -390,7 +390,7 @@ $(document).on("click", "#saveEditBtn", function () {
 
   $.ajax({
     type: "PUT",
-    url: "http://localhost/api_metrecicla/controllers/detallesventa.php",
+    url: apiUrl + "/controllers/detallesventa.php",
     data: JSON.stringify({
       id_detalle_venta: detalleId,
       cantidad: nuevaCantidad,
@@ -444,7 +444,7 @@ function deleteDetalleVenta(detalleId) {
   console.log("id que llega para eliminar: ", detalleId);
   $.ajax({
     type: "DELETE",
-    url: `http://localhost/api_metrecicla/controllers/detallesventa.php?id=${detalleId}`,
+    url: `${apiUrl}/controllers/detallesventa.php?id=${detalleId}`,
     dataType: "json",
     success: function (response) {
       if (response.codigo === 200) {
@@ -472,55 +472,183 @@ function deleteDetalleVenta(detalleId) {
   });
 }
 
-
-
 $(document).ready(function () {
-    function limpiarCampoDecimal(event) {
-        var currentValue = event.target.value;
-        var dotCount = currentValue.split(".").length - 1;
+  function limpiarCampoDecimal(event) {
+    var currentValue = event.target.value;
+    var dotCount = currentValue.split(".").length - 1;
 
-        // Permitir solo números y hasta un punto decimal
-        if (dotCount <= 1) {
-            var cleanedValue = currentValue.replace(/[^\d.]/g, "");
+    // Permitir solo números y hasta un punto decimal
+    if (dotCount <= 1) {
+      var cleanedValue = currentValue.replace(/[^\d.]/g, "");
 
-            // Eliminar puntos adicionales después del primer punto
-            cleanedValue = cleanedValue.replace(/\.(?=[^.]*\.)/g, "");
+      // Eliminar puntos adicionales después del primer punto
+      cleanedValue = cleanedValue.replace(/\.(?=[^.]*\.)/g, "");
 
-            // Actualizar el valor del campo
-            event.target.value = cleanedValue;
-        } else {
-            // Si hay más de un punto, eliminar el último
-            event.target.value = currentValue.slice(0, -1);
-        }
+      // Actualizar el valor del campo
+      event.target.value = cleanedValue;
+    } else {
+      // Si hay más de un punto, eliminar el último
+      event.target.value = currentValue.slice(0, -1);
     }
+  }
 
-    // Agregar un evento de escucha para el cambio en el campo de cantidad
-    $("#cantidad").on("input", limpiarCampoDecimal);
+  // Agregar un evento de escucha para el cambio en el campo de cantidad
+  $("#cantidad").on("input", limpiarCampoDecimal);
 
-    // Agregar un evento de escucha para el caso en que se pega texto en el campo
-    $("#cantidad").on("paste", function (event) {
-        // Esperar un breve momento antes de procesar el contenido pegado
-        setTimeout(function () {
-            limpiarCampoDecimal(event);
-        }, 0);
-    });
+  // Agregar un evento de escucha para el caso en que se pega texto en el campo
+  $("#cantidad").on("paste", function (event) {
+    // Esperar un breve momento antes de procesar el contenido pegado
+    setTimeout(function () {
+      limpiarCampoDecimal(event);
+    }, 0);
+  });
 });
-
 
 $(document).ready(function () {
-    // Evento cuando se presiona una tecla en el campo cantidad
-    $("#cantidad").keyup(function (e) {
-        // Verificar si la tecla presionada es "Enter" (código 13)
-        if (e.which === 13) {
-            // Realizar la insercion en la base de datos
-            addDetalleVenta();
-        }
-    });
+  // Evento cuando se presiona una tecla en el campo cantidad
+  $("#cantidad").keyup(function (e) {
+    // Verificar si la tecla presionada es "Enter" (código 13)
+    if (e.which === 13) {
+      // Realizar la insercion en la base de datos
+      addDetalleVenta();
+    }
+  });
 });
-
-
 
 function cerrarModalEdit() {
-    $("#editModal").modal("hide");
-    $("#confirmDeleteModal").modal("hide");
-  }
+  $("#editModal").modal("hide");
+  $("#confirmDeleteModal").modal("hide");
+}
+
+function addTotalVenta() {
+  let id_venta = $("#idticketventa").val();
+  let total = $("#total").val();
+
+  $.ajax({
+    type: "PUT",
+    url: apiUrl + "/controllers/ventas.php",
+    data: JSON.stringify({
+      id_venta: id_venta,
+      total: total,
+    }),
+    dataType: "json",
+    contentType: "application/json",
+    success: function (responseData) {
+      generarTicket();
+      reloadPag();
+    },
+    error: function (xhr, status, error) {
+      console.error("Error en la llamada AJAX:", status, error);
+    },
+  });
+  
+}
+
+function generarTicket(){
+  const filas = document.querySelectorAll(
+    "#tablaDetallesVentaContainer table tbody tr"
+  );
+  const alturaBase = 80; // Altura base mínima
+  const alturaPorFila = 5; // Cada fila ocupa aproximadamente 5 mm
+  const alturaTotal = alturaBase + filas.length * alturaPorFila;
+
+  const pdf = new window.jspdf.jsPDF({
+    unit: "mm",
+    format: [80, alturaTotal], // Ajustar tamaño dinámicamente
+  });
+
+  const nombreSucursal = localStorage.getItem("nombre_sucursal") || "N/A";
+  const direccionSucursal = localStorage.getItem("direccion_sucursal") || "N/A";
+  const telefonoSucursal = localStorage.getItem("telefono_sucursal") || "N/A";
+  const local = document.getElementById("nombrelocal").value = document.getElementById("idlocalSelect").selectedOptions[0].text;
+  
+  const empleado =
+    document
+      .getElementById("bienvenidaContainer")
+      .textContent.replace("Bienvenido ", "") || "N/A";
+  const fecha = obtenerFechaHoraActual();
+
+  // Configurar fuente monoespaciada
+  pdf.setFont("courier", "bold");
+  pdf.setFontSize(6);
+
+  const margenIzquierdo = 1; // Reducir margen izquierdo
+
+  // Encabezado
+  pdf.text("---- MET RECICLA ----", 20, 10, { align: "center" });
+  pdf.setFontSize(6);
+  pdf.text("VENTA", 20, 13, { align: "center" });
+
+  // Detalles del encabezado
+  pdf.setFontSize(6);
+  pdf.text(`Sucursal: ${nombreSucursal}`, margenIzquierdo, 18);
+  pdf.text(`Dirección: ${direccionSucursal}`, margenIzquierdo, 23);
+  pdf.text(`Teléfono: ${telefonoSucursal}`, margenIzquierdo, 28);
+  pdf.text(`Fecha: ${fecha}`, margenIzquierdo, 33);
+  pdf.text(`Local: ${local}`, margenIzquierdo, 38);
+
+  // Encabezados de la tabla
+  let y = 43;
+  pdf.text("CANT  DESC     PRECIO     SUBT", margenIzquierdo, y); // Reducido el espacio entre DESC y PRECIO
+  pdf.text("-----------------------------------", margenIzquierdo, y + 3); // Línea separadora
+  y += 8;
+
+  filas.forEach((fila) => {
+    const descripcion = fila
+      .querySelector("td:nth-child(2)")
+      .textContent.trim()
+      .slice(0, 12)
+      .padEnd(8); // Limitar a 12 caracteres
+    const cantidad = fila
+      .querySelector("td:nth-child(3)")
+      .textContent.trim()
+      .padEnd(5); // 5 espacios
+    const precio = parseFloat(
+      fila.querySelector("td:nth-child(4)").textContent.trim().replace(/,/g, "")
+    )
+      .toLocaleString()
+      .padStart(8); // Reservar espacio para montos grandes
+    const subtotal = parseFloat(
+      fila.querySelector("td:nth-child(5)").textContent.trim().replace(/,/g, "")
+    )
+      .toLocaleString()
+      .padStart(10); // Reservar espacio para montos grandes
+
+    const linea = `${cantidad}${descripcion}${precio}${subtotal}`;
+    pdf.text(linea, margenIzquierdo, y);
+    y += 5;
+  });
+
+  // Línea de total
+  pdf.text("-----------------------------------", margenIzquierdo, y); // Línea separadora final
+  y += 5;
+  const total = parseFloat(
+    document.getElementById("total").value || "0"
+  ).toLocaleString(); // Formatear con separadores de miles
+  pdf.setFontSize(8);
+  pdf.text(`TOTAL: ${total.padStart(15)}`, margenIzquierdo, y);
+
+  // Descargar el PDF
+  const idVenta = document.getElementById("idticketventa").value || "sin_id";
+  const nombreArchivo = `ticket_${idVenta}.pdf`;
+  pdf.save(nombreArchivo);
+}
+
+
+
+
+function obtenerFechaHoraActual() {
+  const ahora = new Date();
+  const dia = ahora.getDate().toString().padStart(2, "0");
+  const mes = (ahora.getMonth() + 1).toString().padStart(2, "0");
+  const año = ahora.getFullYear();
+  const horas = ahora.getHours().toString().padStart(2, "0");
+  const minutos = ahora.getMinutes().toString().padStart(2, "0");
+  const segundos = ahora.getSeconds().toString().padStart(2, "0");
+
+  return `${dia}-${mes}-${año} ${horas}:${minutos}:${segundos}`;
+}
+
+function reloadPag() {
+  location.reload();
+}

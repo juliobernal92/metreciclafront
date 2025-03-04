@@ -34,4 +34,5 @@ include("../includes/header.php");
 </div>
 
 <script src="../js/chatarras.js"></script>
+<script src="../js/config.js"></script>
 <?php include("../includes/footer.php"); ?>

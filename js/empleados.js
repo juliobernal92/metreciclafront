@@ -52,7 +52,7 @@ $(document).ready(function () {
 function cargarDatosTabla() {
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/empleados.php",
+        url: apiUrl + "/controllers/empleados.php",
         dataType: "json",
         success: function (empleados) {
             var tabla = $('#tablaEmpleados').DataTable();
@@ -81,7 +81,7 @@ function cargarDatosTabla() {
 function loadEditData(empleadoId) {
     $.ajax({
         type: "GET",
-        url: 'http://localhost/api_metrecicla/controllers/empleados.php',
+        url: `${apiUrl}/controllers/empleados.php`,
         data: {
             id: empleadoId
         },
@@ -114,7 +114,7 @@ function saveEditEmpleado() {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost/api_metrecicla/controllers/empleados.php",
+        url: apiUrl + "/controllers/empleados.php",
         data: JSON.stringify({
             id_empleado: empleadoId,
             nombre_apellido: nuevoNombre,
@@ -190,7 +190,7 @@ $(document).on("click", ".btn-delete", function () {
 function deleteEmpleado(empleadoId) {
     $.ajax({
         type: "DELETE",
-        url: "http://localhost/api_metrecicla/controllers/empleados.php",
+        url: apiUrl + "/controllers/empleados.php",
         data: JSON.stringify({
             id_empleado: empleadoId,
             ajax: 1
@@ -305,7 +305,7 @@ function addEmpleado() {
     // Realizar la solicitud AJAX al backend
     $.ajax({
         type: "POST",
-        url: "http://localhost/api_metrecicla/controllers/empleados.php",
+        url: apiUrl + "/controllers/empleados.php",
         data: JSON.stringify({
             nombre_apellido: nombre,
             telefono: telefono,
@@ -359,7 +359,7 @@ $(document).ready(function () {
 function cargarSucursales() {
     $.ajax({
         type: "GET",
-        url: "http://localhost/api_metrecicla/controllers/sucursales.php",
+        url: apiUrl + "/controllers/sucursales.php",
         dataType: "json",
         success: function (response) {
             if (response.codigo === 200 && response.data.resultado.length > 0) {

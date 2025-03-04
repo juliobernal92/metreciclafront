@@ -135,4 +135,5 @@ include("../includes/header.php");
 
 
 <script src="../js/preciolocal.js"></script>
+<script src="../js/config.js"></script>
 <?php include("../includes/footer.php"); ?>

@@ -5,7 +5,7 @@ document
     const cedula = document.getElementById("cedula").value;
     const pass = document.getElementById("password").value;
 
-    fetch("http://localhost/api_metrecicla/controllers/empleados.php", {
+    fetch(`${apiUrl}/controllers/empleados.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,10 +34,12 @@ document
           
           window.location.href = "index.php";
         } else {
-          // Mostrar mensaje de error
+          // Mostrar mensaje de error en caso de credenciales incorrectas
           const errorDiv = document.getElementById("error");
-          errorDiv.style.display = "block";
-          errorDiv.innerText = "Login failed: " + data.message;
+          errorDiv.style.display = "block";  // Mostrar el div
+          errorDiv.classList.remove("d-none");  // Asegurarse de que no esté oculto
+          errorDiv.classList.add("alert-danger");  // Asegurar que tenga la clase de error de Bootstrap
+          errorDiv.innerText = "Datos incorrectos. Verifique su cédula y contraseña.";
         }
       })
       .catch((error) => {

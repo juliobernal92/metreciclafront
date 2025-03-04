@@ -169,5 +169,6 @@ include("../includes/header.php");
 </div>
 <script src="../js/ventas.js"></script>
 <script src="../js/fecha.js"></script>
+<script src="../js/config.js"></script>
 
 <?php include("../includes/footer.php"); ?>
