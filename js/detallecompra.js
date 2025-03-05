@@ -158,13 +158,18 @@ $(document).on("click", ".btn-edit", function () {
 
 $("#saveEditBtn").on("click", function () {
     var detalleId = $("#modalDetalleId").val();
-    var nuevaCantidad = parseInt($("#modalCantidad").val());
+    var nuevaCantidad = parseFloat($("#modalCantidad").val().replace(",", "."));
+
 
     if (!nuevaCantidad || nuevaCantidad <= 0) {
         showBootstrapAlert("Por favor, ingrese una cantidad válida.", "warning");
         return;
     }
-
+    console.log("Enviando datos:", JSON.stringify({
+        id_detalle_compra: detalleId,
+        cantidad: nuevaCantidad
+    }));
+    
     $.ajax({
         type: "PUT",
         url: apiUrl+"/controllers/detallescompra.php",
